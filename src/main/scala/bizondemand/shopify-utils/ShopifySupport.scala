@@ -2,7 +2,7 @@ package bizondemand.shopify-utils
 
 trait ShopifySupport {
 
-	def addShopifyPackages = {
+	def packages = {
 
 		LiftRules.addToPackages("bizondemand.shopify-utils")
 
@@ -15,11 +15,16 @@ trait ShopifySupport {
 			Menu.i("Edit Shop") / "shopify" / "delete" :: 
 			Nil
 
+	
   def dispatchRules = {
     LiftRules.statelessRewrite.append {
 			case RewriteRequest( ParsePath( List( "shopify" :: "install" :: Nil, _, _) => install _
-			case RewriteRequest( ParsePath( List( "shopify" :: "link" :: Nil, _, _) => link _
 		}
+	}
+
+	def statelessRewrites = {
+		case RewriteRequest( ParsePath( List("shopify", "edit", shopName), _, _, _), _, _) => 
+				RewriteResponse("shopify" :: "edit" :: Nil, Map("shopname" -> shopName))
 	}
 
   def install : Box[ net.liftweb.http.LiftResponse] = {

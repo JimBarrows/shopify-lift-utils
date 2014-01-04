@@ -1,4 +1,4 @@
-package com.nsfw.customer_elevator.snippet
+package bizondemand.shopify-utils.snippet
 
 import scala.collection.jcl.Conversions._
 import net.liftweb._
@@ -25,20 +25,14 @@ import scala_mash.highrise_api.models.enumerations.VisibleToValues
 /**This is the interface that shopify uses to talk to us.
  *
  * @author jimbarrows
- * @created: Dec 10, 2009 11:39:13 PM
- * @version 1.0
  *
  */
-
-class ShopifyInterface {
-
-}
 
 object ShopifyInterface extends Log {
 
 
-  def addStore(): Box[net.liftweb.http.LiftResponse] = {
-		if( currentShop.isDefined) return Full(RedirectResponse("/shopInfo/edit/" + currentShop.open_!.shopName))
+  def install: Box[net.liftweb.http.LiftResponse] = {
+		if( currentShop.isDefined) return Full(RedirectResponse("/shopifyUser/edit/" + currentShop.open_!.shopName))
 
     val shop = ShopInfo.createInstance
 
